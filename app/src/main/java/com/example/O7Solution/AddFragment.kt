@@ -80,8 +80,6 @@ class AddFragment : Fragment() {
 
             return !(TextUtils.isEmpty(firstname)&& TextUtils.isEmpty(lastname)&& TextUtils.isEmpty(age))
         }
-
-
     companion object {
         /**
          * Use this factory method to create a new instance of

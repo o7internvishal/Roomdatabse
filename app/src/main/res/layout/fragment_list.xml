@@ -7,9 +7,10 @@
     tools:context=".ListFragment">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
+        android:id="@+id/userRecyclerViewdata"
         android:layout_width="413dp"
         android:layout_height="314dp"
+tools:listitem="@layout/user_list"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"

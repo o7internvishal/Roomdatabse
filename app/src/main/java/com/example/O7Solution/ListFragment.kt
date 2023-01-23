@@ -5,7 +5,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.O7Solution.Adapter.UserAdapter
+import com.example.O7Solution.data.UserViewModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 // TODO: Rename parameter arguments, choose names that match
@@ -20,11 +25,16 @@ private const val ARG_PARAM2 = "param2"
  */
 class ListFragment : Fragment() {
     lateinit var button:FloatingActionButton
+    lateinit var recyclerView: RecyclerView
     private var param1: String? = null
     private var param2: String? = null
+    lateinit var userAdapter: UserAdapter
+    lateinit var muserViewModel: UserViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        muserViewModel= ViewModelProvider(this).get(UserViewModel::class.java)
+
         arguments?.let {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
@@ -38,9 +48,16 @@ class ListFragment : Fragment() {
         // Inflate the layout for this fragment
         val view= inflater.inflate(R.layout.fragment_list, container, false)
         button=view.findViewById(R.id.floatingActionButton)
+        recyclerView=view.findViewById(R.id.recyclerView)
+
+        userAdapter = UserAdapter()
+        recyclerView.adapter = userAdapter
+
+        recyclerView.layoutManager = LinearLayoutManager(requireContext())
         button.setOnClickListener{
             findNavController().navigate(R.id.action_listFragment_to_addFragment)
         }
+     //   muserViewModel.
         return view
     }
 
