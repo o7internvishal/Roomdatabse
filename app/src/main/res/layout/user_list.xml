@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_margin="9dp"
+    android:outlineSpotShadowColor="@color/cardview_light_background"
+    android:background="#B8CFE1"
+    android:padding="20dp">
+
     <TextView
         android:id="@+id/tvId"
         android:layout_width="match_parent"
@@ -23,10 +28,7 @@
         android:textSize="15dp"
         android:textStyle="bold"
         android:background="@drawable/shape"
-        android:layout_marginTop="50dp"
-        android:layout_marginLeft="70dp"
 
-        android:layout_marginRight="30dp"
         android:textColor="@color/bottom_nav_Selected_item"/>
 
     <TextView
@@ -36,10 +38,7 @@
         android:hint="LastName"
         android:textSize="15dp"
         android:textStyle="bold"
-        android:layout_marginLeft="70dp"
-        android:layout_marginTop="20dp"
 
-        android:layout_marginRight="30dp"
         android:background="@drawable/shape"
         android:textColor="@color/bottom_nav_Selected_item"/>
     <TextView
@@ -49,9 +48,7 @@
         android:hint="Age"
         android:textSize="15dp"
         android:textStyle="bold"
-        android:layout_marginLeft="70dp"
-        android:layout_marginRight="30dp"
-        android:layout_marginTop="20dp"
+
         android:background="@drawable/shape"
         android:textColor="@color/bottom_nav_Selected_item"/>
 

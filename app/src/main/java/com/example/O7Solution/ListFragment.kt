@@ -31,7 +31,7 @@ private const val ARG_PARAM2 = "param2"
 class ListFragment : Fragment() {
     lateinit var button: FloatingActionButton
     lateinit var recyclerView: RecyclerView
-    lateinit var imgAdd:ImageButton
+    lateinit var imgAdd: ImageButton
     private var param1: String? = null
     private var param2: String? = null
     lateinit var userAdapter: UserAdapter
@@ -55,29 +55,20 @@ class ListFragment : Fragment() {
         button = view.findViewById(R.id.floatingActionButton)
         recyclerView = view.findViewById(R.id.recyclerView)
 //        imgAdd=view.findViewById(R.id.imgAdd)
-         val userAdapter = UserAdapter()
+        val userAdapter = UserAdapter()
         recyclerView.adapter = userAdapter
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         muserViewModel = ViewModelProvider(this).get(UserViewModel::class.java)
         muserViewModel.readAllData.observe(viewLifecycleOwner, Observer { user ->
             userAdapter.setData(user)
-//            recyclerView.adapter = userAdapter
+//
         })
         button.setOnClickListener {
 
             findNavController().navigate(R.id.action_listFragment_to_addFragment)
         }
-
-
-//        class getTeask : AsyncTask<Void, Void, Void>() {
-//            override fun doInBackground(vararg params: Void?): Void {
-//            }
-//        }
-        //   muserViewModel.
         return view
     }
-
-
 
     companion object {
         /**

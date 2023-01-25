@@ -9,7 +9,10 @@ class UserRepository(private val userDao: UserDao) {
     suspend fun addUser(user: User){
         userDao.adduser(user)
     }
-//    fun getData(): LiveData<List<User>> {
-//        return readAllData
-//    }
+    suspend fun deleteUser(user: User){
+
+    }
+    fun getData(): LiveData<List<User>> {
+        return readAllData
+    }
 }

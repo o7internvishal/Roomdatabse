@@ -28,9 +28,9 @@ private const val ARG_PARAM2 = "param2"
  */
 class AddFragment : Fragment() {
     lateinit var muserViewModel: UserViewModel
-    lateinit var etfirstname:EditText
-    lateinit var etlastname:EditText
-    lateinit var etage:EditText
+    lateinit var etfirstname: EditText
+    lateinit var etlastname: EditText
+    lateinit var etage: EditText
     lateinit var btnAdd: Button
     private var param1: String? = null
     private var param2: String? = null
@@ -48,38 +48,41 @@ class AddFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val view= inflater.inflate(R.layout.fragment_add, container, false)
-        etfirstname=view.findViewById(R.id.etFirstName)
-        etlastname=view.findViewById(R.id.etLastName)
-        etage=view.findViewById(R.id.etAge)
-        btnAdd=view.findViewById(R.id.btnAdd)
-        muserViewModel=ViewModelProvider(this).get(UserViewModel::class.java)
-        btnAdd.setOnClickListener{
+        val view = inflater.inflate(R.layout.fragment_add, container, false)
+        etfirstname = view.findViewById(R.id.etFirstName)
+        etlastname = view.findViewById(R.id.etLastName)
+        etage = view.findViewById(R.id.etAge)
+        btnAdd = view.findViewById(R.id.btnAdd)
+        muserViewModel = ViewModelProvider(this).get(UserViewModel::class.java)
+        btnAdd.setOnClickListener {
             inseartDatatoDatabase()
         }
         return view
     }
 
     private fun inseartDatatoDatabase() {
-        val firstname=etfirstname.text.toString()
-        val lastname=etlastname.text.toString()
-        val age=etage.text
+        val firstname = etfirstname.text.toString()
+        val lastname = etlastname.text.toString()
+        val age = etage.text
 
-        if (inpucheck(firstname,lastname,age)) {
+        if (inpucheck(firstname, lastname, age)) {
             val user = User(0, firstname, lastname, Integer.parseInt(age.toString()))
 
             muserViewModel.addUser(user)
-            Toast.makeText(requireContext(),"Successfully Added",Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), "Successfully Added", Toast.LENGTH_SHORT).show()
             findNavController().navigate(R.id.action_addFragment_to_listFragment)
-        }else{
-            Toast.makeText(requireContext(),"Please fill out all field",Toast.LENGTH_SHORT).show()
+        } else {
+            Toast.makeText(requireContext(), "Please fill out all field", Toast.LENGTH_SHORT).show()
         }
     }
 
     private fun inpucheck(firstname: String, lastname: String, age: Editable?): Boolean {
 
-            return !(TextUtils.isEmpty(firstname)&& TextUtils.isEmpty(lastname)&& TextUtils.isEmpty(age))
-        }
+        return !(TextUtils.isEmpty(firstname) && TextUtils.isEmpty(lastname) && TextUtils.isEmpty(
+            age
+        ))
+    }
+
     companion object {
         /**
          * Use this factory method to create a new instance of

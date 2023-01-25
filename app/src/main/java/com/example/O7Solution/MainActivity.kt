@@ -31,8 +31,8 @@ class MainActivity : AppCompatActivity() {
 
         drawerLayout = findViewById(R.id.drawerlayout)
         nav_view = findViewById(R.id.nav_view)
-        toolbar=findViewById(R.id.toolbar)
-       // setActionBar(toolbar)
+//        toolbar=findViewById(R.id.toolbar)
+        setSupportActionBar(findViewById(R.id.toolbar))
         toggle = ActionBarDrawerToggle(this, drawerLayout, R.string.open, R.string.close)
         drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
@@ -68,6 +68,8 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (toggle.onOptionsItemSelected(item)){
             return true
@@ -75,3 +77,4 @@ class MainActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 }
+
