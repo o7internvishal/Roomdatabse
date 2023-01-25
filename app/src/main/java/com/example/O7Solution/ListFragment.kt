@@ -1,15 +1,16 @@
 package com.example.O7Solution
 
-import android.os.AsyncTask
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.EditText
 import android.widget.ImageButton
+import androidx.core.os.bundleOf
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.viewModelScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -28,10 +29,12 @@ private const val ARG_PARAM2 = "param2"
  * Use the [ListFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class ListFragment : Fragment() {
+class ListFragment : Fragment(),ClickedInterface {
     lateinit var button: FloatingActionButton
     lateinit var recyclerView: RecyclerView
     lateinit var imgAdd: ImageButton
+    lateinit var btnDelete: Button
+    lateinit var btnUpdate:Button
     private var param1: String? = null
     private var param2: String? = null
     lateinit var userAdapter: UserAdapter
@@ -52,10 +55,10 @@ class ListFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_list, container, false)
+
         button = view.findViewById(R.id.floatingActionButton)
         recyclerView = view.findViewById(R.id.recyclerView)
-//        imgAdd=view.findViewById(R.id.imgAdd)
-        val userAdapter = UserAdapter()
+         userAdapter = UserAdapter(this)
         recyclerView.adapter = userAdapter
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         muserViewModel = ViewModelProvider(this).get(UserViewModel::class.java)
@@ -63,12 +66,14 @@ class ListFragment : Fragment() {
             userAdapter.setData(user)
 //
         })
+
         button.setOnClickListener {
 
             findNavController().navigate(R.id.action_listFragment_to_addFragment)
         }
         return view
     }
+
 
     companion object {
         /**
@@ -88,5 +93,21 @@ class ListFragment : Fragment() {
                     putString(ARG_PARAM2, param2)
                 }
             }
+    }
+
+    override fun deleteClicked(user: User) {
+        muserViewModel.deleteuser(user)
+    }
+
+    override fun updateClicked(user: User) {
+        val bundle= bundleOf("id" to user.id.toString(),"name" to user.firstname.toString(),
+        "lname" to user.lastname.toString(),"age" to user.age.toString())
+
+
+
+        muserViewModel.updateUser(user)
+
+        findNavController().navigate(R.id.action_listFragment_to_addFragment, bundle)
+
     }
 }

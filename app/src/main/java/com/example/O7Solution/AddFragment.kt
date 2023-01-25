@@ -3,6 +3,7 @@ package com.example.O7Solution
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextUtils
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -10,7 +11,6 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.O7Solution.data.User
@@ -32,15 +32,25 @@ class AddFragment : Fragment() {
     lateinit var etlastname: EditText
     lateinit var etage: EditText
     lateinit var btnAdd: Button
+    lateinit var user: User
     private var param1: String? = null
     private var param2: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
+
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
         }
+        
+        var id=arguments?.getString("id") ?: ""
+        var fname=arguments?.getString("name") ?: ""
+        var lname=arguments?.getString("lname") ?: ""
+        var age=arguments?.getString("age") ?: ""
+        user=User(id.toInt(),fname,lname,age.toInt())
+        Log.e("name",fname)
+
     }
 
     override fun onCreateView(
@@ -53,10 +63,15 @@ class AddFragment : Fragment() {
         etlastname = view.findViewById(R.id.etLastName)
         etage = view.findViewById(R.id.etAge)
         btnAdd = view.findViewById(R.id.btnAdd)
+
+        //set data
+
+
         muserViewModel = ViewModelProvider(this).get(UserViewModel::class.java)
         btnAdd.setOnClickListener {
             inseartDatatoDatabase()
         }
+
         return view
     }
 
@@ -66,7 +81,7 @@ class AddFragment : Fragment() {
         val age = etage.text
 
         if (inpucheck(firstname, lastname, age)) {
-            val user = User(0, firstname, lastname, Integer.parseInt(age.toString()))
+            val user = User(0, firstname, lastname,Integer.parseInt(age.toString()))
 
             muserViewModel.addUser(user)
             Toast.makeText(requireContext(), "Successfully Added", Toast.LENGTH_SHORT).show()

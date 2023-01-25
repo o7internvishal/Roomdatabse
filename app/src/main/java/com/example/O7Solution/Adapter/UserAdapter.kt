@@ -3,15 +3,14 @@ package com.example.O7Solution.Adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageButton
+import android.widget.Button
 import android.widget.TextView
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.ViewHolder
+import com.example.O7Solution.ClickedInterface
 import com.example.O7Solution.R
 import com.example.O7Solution.data.User
 
-class UserAdapter:RecyclerView.Adapter<UserAdapter.viewHolder>() {
+class UserAdapter(var ClickedInterface:ClickedInterface):RecyclerView.Adapter<UserAdapter.viewHolder>() {
     private var userList= emptyList<User>()
 
     class viewHolder(itemView: View):RecyclerView.ViewHolder(itemView) {
@@ -19,11 +18,16 @@ class UserAdapter:RecyclerView.Adapter<UserAdapter.viewHolder>() {
         var tvLname: TextView
         var tvAge:TextView
         var tvId:TextView
+        var btnDelete:Button
+        var btnUpdate:Button
         init {
             tvFname = itemView.findViewById<TextView>(R.id.tvFirstName)
             tvLname = itemView.findViewById<TextView>(R.id.tvLastName)
             tvAge = itemView.findViewById<TextView>(R.id.tvAge)
             tvId=itemView.findViewById(R.id.tvId)
+            btnDelete=itemView.findViewById(R.id.btnDelete)
+            btnUpdate=itemView.findViewById(R.id.btnUpdate)
+
 
 
         }
@@ -40,6 +44,15 @@ return viewHolder(LayoutInflater.from(parent.context).inflate(R.layout.user_list
         holder.tvFname.text=newList.firstname
         holder.tvLname.text=newList.lastname
         holder.tvAge.text=newList.age.toString()
+        holder.btnDelete.setOnClickListener {
+
+            ClickedInterface.deleteClicked(newList)
+        }
+        holder.btnUpdate.setOnClickListener {
+
+            ClickedInterface.updateClicked(newList)
+        }
+
     }
     fun setData(user:List<User>){
         this.userList=user
